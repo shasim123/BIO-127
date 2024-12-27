@@ -2,72 +2,242 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Biology Course 2025</title>
+  <meta name="description" content="Biology 2025 Course Calendar" />
+  <meta name="keywords" content="Biology, Calendar, Course" />
+  <meta name="author" content="Instructor Name" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Biology 2025</title>
+
   <!-- Bootstrap 5 CSS -->
   <link
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
     rel="stylesheet"
   />
+
+  <!-- Google Fonts (optional) -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+    rel="stylesheet"
+  />
+
   <style>
-    /* Custom Styles */
+    /* 
+    =======================================
+    GLOBAL STYLES
+    =======================================
+    */
+    * {
+      box-sizing: border-box;
+    }
+    html {
+      /* Smooth scrolling */
+      scroll-behavior: smooth;
+    }
     body {
+      font-family: "Poppins", sans-serif;
       background-color: #f8f9fa;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    a {
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: none;
+    }
+
+    /* 
+    =======================================
+    NAVBAR STYLES
+    =======================================
+    */
+    .navbar {
+      background: #0d6efd; /* primary blue */
+      transition: background 0.3s ease-in-out;
+    }
+    .navbar:hover {
+      background: #0a58ca; /* darker on hover */
     }
     .navbar-brand {
-      font-weight: bold;
+      font-weight: 600;
       font-size: 1.5rem;
+      color: #fff !important;
     }
+    .nav-link {
+      color: #fff !important;
+      transition: color 0.3s ease;
+    }
+    .nav-link:hover {
+      color: #dceeff !important;
+    }
+
+    /* 
+    =======================================
+    HERO SECTION (PARALLAX EFFECT)
+    =======================================
+    */
     .hero {
-      background: url('https://images.unsplash.com/photo-1607458771962-4eee3fa10ea4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') no-repeat center center;
+      position: relative;
+      height: 60vh;
+      min-height: 400px; 
+      width: 100%;
+      /* Parallax background - change URL to any image you like */
+      background: url('https://images.unsplash.com/photo-1607458771962-4eee3fa10ea4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80')
+        no-repeat center center;
+      background-attachment: fixed; /* This enables parallax effect on desktop */
       background-size: cover;
-      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #ffffff;
       text-align: center;
-      padding: 5rem 1rem;
       margin-bottom: 2rem;
-      border-radius: 0.5rem;
+    }
+    .hero::before {
+      /* Dark overlay to make text more readable */
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: rgba(13, 110, 253, 0.3); /* bluish overlay */
+      top: 0;
+      left: 0;
+    }
+    .hero h1,
+    .hero p {
+      position: relative;
+      z-index: 2;
+      margin: 0 1rem;
     }
     .hero h1 {
       font-size: 3rem;
-      font-weight: bold;
+      font-weight: 600;
       margin-bottom: 1rem;
+      animation: fadeInDown 1s ease forwards;
+      opacity: 0;
     }
     .hero p {
       font-size: 1.25rem;
-      margin-bottom: 0;
+      animation: fadeInUp 1.2s ease forwards;
+      opacity: 0;
     }
+
+    /* 
+    =======================================
+    ANIMATIONS
+    =======================================
+    */
+    @keyframes fadeInDown {
+      0% {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* 
+    =======================================
+    MONTH HEADINGS
+    =======================================
+    */
     .month-heading {
       margin-top: 2rem;
       margin-bottom: 1rem;
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: #0d6efd;
       text-decoration: underline;
     }
-    .accordion-button:focus {
-      box-shadow: none !important;
-    }
+
+    /* 
+    =======================================
+    ACCORDION + WEEKS 
+    =======================================
+    */
     .week-card {
       border: 1px solid #dee2e6;
       border-radius: 0.5rem;
       margin-bottom: 1rem;
+      box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
     }
-    .week-card-header {
-      font-weight: 500;
-      background-color: #e9ecef;
-      border-bottom: 1px solid #dee2e6;
-      padding: 0.75rem 1rem;
+    .week-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
     }
-    .table th, .table td {
+    .accordion-button {
+      background-color: #e9f0ff; /* slight blue tint */
+      color: #333;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .accordion-button:focus {
+      box-shadow: none !important;
+    }
+    .accordion-button:not(.collapsed) {
+      background-color: #0d6efd !important;
+      color: #fff;
+    }
+    .accordion-button:hover {
+      background-color: #dceeff; 
+    }
+    .table th,
+    .table td {
       vertical-align: middle;
+    }
+
+    /* 
+    =======================================
+    FOOTER (OPTIONAL)
+    =======================================
+    */
+    .footer {
+      background: #0d6efd;
+      color: #fff;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    /* 
+    =======================================
+    RESPONSIVE MEDIA QUERIES
+    =======================================
+    */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .hero p {
+        font-size: 1rem;
+      }
+      .month-heading {
+        font-size: 1.5rem;
+      }
     }
   </style>
 </head>
 <body>
 
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Biology 2025</a>
       <button
-        class="navbar-toggler"
+        class="navbar-toggler text-white border-0"
         type="button"
         data-bs-toggle="collapse"
         data-bs-target="#navbarSupportedContent"
@@ -75,19 +245,21 @@
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
-        <span class="navbar-toggler-icon"></span>
+        <span class="navbar-toggler-icon" 
+          style="filter: invert(1) brightness(2);"></span>
       </button>
-
       <div 
         class="collapse navbar-collapse" 
         id="navbarSupportedContent"
       >
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link active" href="#"
+              >Home</a
+            >
           </li>
           <!-- Add more tabs/pages as needed -->
-          <!-- Example:
+          <!-- 
           <li class="nav-item">
             <a class="nav-link" href="#">Syllabus</a>
           </li>
@@ -101,12 +273,10 @@
   </nav>
   <!-- End Navbar -->
 
-  <!-- Hero Section -->
-  <div class="container">
-    <div class="hero">
-      <h1>Welcome to Biology 2025</h1>
-      <p>Explore the course calendar, objectives, and assignments below.</p>
-    </div>
+  <!-- Hero / Parallax Section -->
+  <div class="hero">
+    <h1>Welcome to Biology 2025</h1>
+    <p>Explore the course calendar, objectives, and assignments below.</p>
   </div>
   <!-- End Hero Section -->
 
@@ -138,7 +308,7 @@
         >
           <div class="accordion-body">
             <table class="table table-striped table-bordered">
-              <thead>
+              <thead class="table-light">
                 <tr>
                   <th>Topic</th>
                   <th>Course Objectives/SLO</th>
@@ -190,7 +360,7 @@
         >
           <div class="accordion-body">
             <table class="table table-striped table-bordered">
-              <thead>
+              <thead class="table-light">
                 <tr>
                   <th>Topic</th>
                   <th>Course Objectives/SLO</th>
@@ -243,7 +413,7 @@
         >
           <div class="accordion-body">
             <table class="table table-striped table-bordered">
-              <thead>
+              <thead class="table-light">
                 <tr>
                   <th>Topic</th>
                   <th>Course Objectives/SLO</th>
@@ -300,7 +470,7 @@
         >
           <div class="accordion-body">
             <table class="table table-striped table-bordered">
-              <thead>
+              <thead class="table-light">
                 <tr>
                   <th>Topic</th>
                   <th>Course Objectives/SLO</th>
@@ -352,7 +522,7 @@
         >
           <div class="accordion-body">
             <table class="table table-striped table-bordered">
-              <thead>
+              <thead class="table-light">
                 <tr>
                   <th>Topic</th>
                   <th>Course Objectives/SLO</th>
@@ -405,7 +575,7 @@
         >
           <div class="accordion-body">
             <table class="table table-striped table-bordered">
-              <thead>
+              <thead class="table-light">
                 <tr>
                   <th>Topic</th>
                   <th>Course Objectives/SLO</th>
@@ -457,7 +627,7 @@
         >
           <div class="accordion-body">
             <table class="table table-striped table-bordered">
-              <thead>
+              <thead class="table-light">
                 <tr>
                   <th>Topic</th>
                   <th>Course Objectives/SLO</th>
@@ -514,7 +684,7 @@
         >
           <div class="accordion-body">
             <table class="table table-striped table-bordered">
-              <thead>
+              <thead class="table-light">
                 <tr>
                   <th>Topic</th>
                   <th>Course Objectives/SLO</th>
@@ -567,7 +737,7 @@
         >
           <div class="accordion-body">
             <table class="table table-striped table-bordered">
-              <thead>
+              <thead class="table-light">
                 <tr>
                   <th>Topic</th>
                   <th>Course Objectives/SLO</th>
@@ -648,7 +818,7 @@
         >
           <div class="accordion-body">
             <table class="table table-striped table-bordered">
-              <thead>
+              <thead class="table-light">
                 <tr>
                   <th>Topic</th>
                   <th>Course Objectives/SLO</th>
@@ -705,7 +875,7 @@
         >
           <div class="accordion-body">
             <table class="table table-striped table-bordered">
-              <thead>
+              <thead class="table-light">
                 <tr>
                   <th>Topic</th>
                   <th>Course Objectives/SLO</th>
@@ -756,7 +926,7 @@
         >
           <div class="accordion-body">
             <table class="table table-striped table-bordered">
-              <thead>
+              <thead class="table-light">
                 <tr>
                   <th>Topic</th>
                   <th>Course Objectives/SLO</th>
@@ -809,7 +979,7 @@
         >
           <div class="accordion-body">
             <table class="table table-striped table-bordered">
-              <thead>
+              <thead class="table-light">
                 <tr>
                   <th>Topic</th>
                   <th>Course Objectives/SLO</th>
@@ -861,7 +1031,7 @@
         >
           <div class="accordion-body">
             <table class="table table-striped table-bordered">
-              <thead>
+              <thead class="table-light">
                 <tr>
                   <th>Topic</th>
                   <th>Course Objectives/SLO</th>
@@ -923,10 +1093,14 @@
         </div>
       </div>
     </div> <!-- End accordion for May -->
-
   </div> <!-- End container -->
 
-  <!-- Bootstrap 5 JS Bundle (Popper + Bootstrap) -->
+  <!-- Optional Footer -->
+  <div class="footer">
+    <p class="mb-0">© 2025 Biology Department - All Rights Reserved</p>
+  </div>
+
+  <!-- Bootstrap 5 JS (Popper + Bootstrap) -->
   <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
   ></script>
